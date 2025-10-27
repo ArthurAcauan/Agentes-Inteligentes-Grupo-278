@@ -1,0 +1,597 @@
+{
+  "name": "Agent_Grupo 278 vF",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1088,
+        224
+      ],
+      "id": "5a9d8648-d5c4-4eea-9f85-44fc42e86091",
+      "name": "When chat message received",
+      "webhookId": "5f7e3abe-7e8d-46ec-ac78-dbcee0f959cd"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "17WheYaaS-Kmv1_1aF_OBExcZuxk8JzW1",
+          "mode": "list"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -480,
+        112
+      ],
+      "id": "60435400-e576-44ae-af1a-5bfff6f87035",
+      "name": "NFs_Itens",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "gh4fwM6k5gW2aPgL",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "13ISPTG-jPrSIJce3CVvjKC2aRcdG8aRu",
+          "mode": "list",
+          "cachedResultName": "202401_NFs_Cabecalho.csv",
+          "cachedResultUrl": "https://drive.google.com/file/d/13ISPTG-jPrSIJce3CVvjKC2aRcdG8aRu/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -560,
+        416
+      ],
+      "id": "ebeb487d-00cf-4b16-bcd2-1253f9524a89",
+      "name": "NFs_Cabecalho",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "gh4fwM6k5gW2aPgL",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        112
+      ],
+      "id": "8e1fbc81-ef70-42c7-ad70-773be5bf7c3f",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "['CHAVE DE ACESSO']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        240
+      ],
+      "id": "63594d4c-9f03-41c7-87f0-811677d9b186",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        432
+      ],
+      "id": "b620557c-317a-411b-adbb-7c5a2bf0febf",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "notas_fiscais",
+          "mode": "list",
+          "cachedResultName": "notas_fiscais"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "chave_acesso",
+        "valueToMatchOn": "={{ $json['CHAVE DE ACESSO'] }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "modelo",
+              "value": "={{ $json.MODELO }}"
+            },
+            {
+              "column": "serie",
+              "value": "={{ $json['SÉRIE'] }}"
+            },
+            {
+              "column": "numero",
+              "value": "={{ $json['NÚMERO'] }}"
+            },
+            {
+              "column": "natureza_operacao",
+              "value": "={{ $json['NATUREZA DA OPERAÇÃO'] }}"
+            },
+            {
+              "column": "data_emissao",
+              "value": "={{ $json['DATA EMISSÃO'] }}"
+            },
+            {
+              "column": "cpf_cnpj_emitente",
+              "value": "={{ $json['CPF/CNPJ Emitente'] }}"
+            },
+            {
+              "column": "razao_social_emitente",
+              "value": "={{ $json['RAZÃO SOCIAL EMITENTE'] }}"
+            },
+            {
+              "column": "inscricao_estadual_emitente",
+              "value": "={{ $json['INSCRIÇÃO ESTADUAL EMITENTE'] }}"
+            },
+            {
+              "column": "uf_emitente",
+              "value": "={{ $json['UF EMITENTE'] }}"
+            },
+            {
+              "column": "municipio_emitente",
+              "value": "={{ $json['MUNICÍPIO EMITENTE'] }}"
+            },
+            {
+              "column": "cnpj_destinatario",
+              "value": "={{ $json['CNPJ DESTINATÁRIO'] }}"
+            },
+            {
+              "column": "nome_destinatario",
+              "value": "={{ $json['NOME DESTINATÁRIO'] }}"
+            },
+            {
+              "column": "uf_destinatario",
+              "value": "={{ $json['UF DESTINATÁRIO'] }}"
+            },
+            {
+              "column": "indicador_ie_destinatario",
+              "value": "={{ $json['INDICADOR IE DESTINATÁRIO'] }}"
+            },
+            {
+              "column": "destino_operacao",
+              "value": "={{ $json['DESTINO DA OPERAÇÃO'] }}"
+            },
+            {
+              "column": "consumidor_final",
+              "value": "={{ $json['CONSUMIDOR FINAL'] }}"
+            },
+            {
+              "column": "presenca_comprador",
+              "value": "={{ $json['PRESENÇA DO COMPRADOR'] }}"
+            },
+            {
+              "column": "numero_produto",
+              "value": "={{ $json['NÚMERO PRODUTO'] }}"
+            },
+            {
+              "column": "descricao_produto_servico",
+              "value": "={{ $json['DESCRIÇÃO DO PRODUTO/SERVIÇO'] }}"
+            },
+            {
+              "column": "codigo_ncm",
+              "value": "={{ $json['CÓDIGO NCM/SH'] }}"
+            },
+            {
+              "column": "tipo_produto",
+              "value": "={{ $json['NCM/SH (TIPO DE PRODUTO)'] }}"
+            },
+            {
+              "column": "cfop",
+              "value": "={{ $json.CFOP }}"
+            },
+            {
+              "column": "quantidade",
+              "value": "={{ $json.QUANTIDADE }}"
+            },
+            {
+              "column": "unidade",
+              "value": "={{ $json.UNIDADE }}"
+            },
+            {
+              "column": "valor_total",
+              "value": "={{ $json['VALOR TOTAL'] }}"
+            },
+            {
+              "column": "evento_mais_recente",
+              "value": "={{ $json['EVENTO MAIS RECENTE'] }}"
+            },
+            {
+              "column": "data_evento_mais_recente",
+              "value": "={{ $json['DATA/HORA EVENTO MAIS RECENTE'] }}"
+            },
+            {
+              "column": "valor_nota_fiscal",
+              "value": "={{ $json['VALOR NOTA FISCAL'] }}"
+            },
+            {
+              "column": "unidade",
+              "value": "={{ $json.UNIDADE }}"
+            }
+          ]
+        },
+        "options": {
+          "replaceEmptyStrings": true
+        }
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        208,
+        240
+      ],
+      "id": "8701ec4b-8de7-4465-9bc8-5913036608ad",
+      "name": "MySQL1",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "notesInFlow": true,
+      "credentials": {
+        "mySql": {
+          "id": "q1nlyWRxpdXIhJpi",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        656,
+        432
+      ],
+      "id": "27ca20b7-d3a1-4f0d-9783-f023318e426e",
+      "name": "MySQL Query1",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "mySql": {
+          "id": "q1nlyWRxpdXIhJpi",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        0
+      ],
+      "id": "297154f3-dae3-43f3-801c-ea2511ddb66b",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const data = item.json;\n\n  return {\n    json: {\n      ...data,\n      \"QUANTIDADE\": Number(data[\"QUANTIDADE\"]),\n      \"VALOR UNITÁRIO\": Number(data[\"VALOR UNITÁRIO\"]),\n      \"VALOR TOTAL\": Number(data[\"VALOR TOTAL\"]),\n      \"VALOR NOTA FISCAL\": Number(data[\"VALOR NOTA FISCAL\"])\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9b6a2579-0ccd-4452-b3e9-4354378bd13d",
+      "name": "Pegando valor como Numeros1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an SQL assistant for MySQL.\n\nYour task is to convert questions written in Portuguese into valid and efficient SQL queries for a single table named `notas_fiscais`.\n\nThis table contains the following columns:\n\nchave_acesso, modelo, serie, numero, natureza_operacao, data_emissao, cpf_cnpj_emitente, razao_social_emitente, inscricao_estadual_emitente, uf_emitente, municipio_emitente, cnpj_destinatario, nome_destinatario, uf_destinatario, indicador_ie_destinatario, destino_operacao, consumidor_final, presenca_comprador, numero_produto, descricao_produto_servico, codigo_ncm, tipo_produto, cfop, quantidade, unidade, valor_unitario, valor_total, evento_mais_recente, data_evento_mais_recente, valor_nota_fiscal\n\n🧠 Semantic mapping:\n- \"nota fiscal\", \"nota\", \"NF\" → refers to unique invoices identified by `chave_acesso`\n- \"valor da nota\", \"valor total da nota fiscal\" → refers to `valor_nota_fiscal`\n- \"produto\" → refers to `descricao_produto_servico`\n- \"quem vendeu mais\" → analyze `razao_social_emitente` with `SUM(valor_nota_fiscal)`\n\n🔁 Important logic:\n- When counting invoices (\"notas fiscais\"), always use: COUNT(DISTINCT chave_acesso)\n- Every SQL statement **must start with SELECT** — never omit it.\n- Only return one single SQL query per answer.\n\n⚠️ Strict instructions:\n- All data is in a **single table**. Do not use JOINs.\n- Use **only the columns listed above**. Do not invent or assume columns.\n- Do not include SQL comments (e.g. `-- ...`).\n- Do not use Markdown formatting (e.g. triple backticks).\n- Respond with **only the SQL query**, clean and ready to execute — no explanations.\n\nUser question (in Portuguese):  \n{{ $json.chatInput }}\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        288,
+        432
+      ],
+      "id": "a742b0ad-c763-441d-8931-7652163c8cee",
+      "name": "Gera o SQL Query"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um assistente especializado em comunicação clara e natural com usuários de sistemas de análise de dados.\n\nSua tarefa é gerar uma resposta textual objetiva e amigável com base em:\n\n1. A pergunta feita pelo usuário\n2. O resultado exato da consulta, que pode conter números, nomes ou ambos\n\n---\n\nPergunta do usuário: {{ $('When chat message received').item.json.chatInput }}\n\nResultado da consulta (formato JSON): {{ JSON.stringify($json) }}\n\n---\n\n🔒 Regras obrigatórias para gerar a resposta:\n\n- Responda diretamente à pergunta com base **somente** nos dados fornecidos.\n- **Nunca invente informações** ou faça suposições.\n- Se o resultado tiver múltiplos campos (ex: nome da empresa e valor), use ambos corretamente na resposta.\n- Sempre formate os números corretamente:\n\n  - Para valores monetários, use `\"R$\"` com **duas casas decimais** e separador de milhar  \n    Ex: `R$ 18.952.517,61`\n\n  - Para contagens inteiras, use separador de milhar  \n    Ex: `Foram emitidas 1.250 notas fiscais`\n\n- Se o valor for zero, diga isso claramente  \n  Ex: `\"Nenhuma nota foi registrada nesse período.\"`\n\n- Se o resultado tiver um nome (ex: de empresa ou produto), inclua ele naturalmente na resposta, sem aspas\n\n---\n\n🎯 Exemplos:\n\n- Pergunta: \"Qual empresa mais vendeu?\"  \n  Resultado:  \n  `{ \"razao_social_emitente\": \"EDITORA FTD S.A.\", \"total_vendas\": 12294992.01 }`  \n  Resposta: A empresa que mais vendeu foi EDITORA FTD S.A., com um total de R$ 12.294.992,01 em vendas.\n\n- Pergunta: \"Qual o valor total das notas emitidas?\"  \n  Resultado: `153200.75`  \n  Resposta: O valor total das notas emitidas foi de R$ 153.200,75.\n\n- Pergunta: \"Quantas notas foram emitidas?\"  \n  Resultado: `0`  \n  Resposta: Nenhuma nota fiscal foi emitida no período analisado.\n\n- Pergunta: \"Qual o número da nota com maior valor?\"  \n  Resultado: `982145`  \n  Resposta: A nota fiscal com o maior valor tem o número 982145.\n\n---\n\n✳️ Sua resposta final deve ser apenas o texto, com clareza, precisão e formatação correta.  \nNão use prefixos, markdown ou explicações adicionais.\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        864,
+        432
+      ],
+      "id": "aab2d49e-f0cd-4fd7-9a82-80a63e4ef329",
+      "name": "Gera a reposta do Chat"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        416,
+        624
+      ],
+      "id": "7bc6e9e3-c688-480b-aa0e-50c8632b51d5",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sRd1EfmM38AtXmO1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        992,
+        608
+      ],
+      "id": "531b08b1-408b-4303-87d1-607c8d44b414",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sRd1EfmM38AtXmO1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import os, io, base64, json, traceback\nimport pandas as pd\nimport numpy as np\nimport matplotlib\nmatplotlib.use(\"Agg\")  # backend headless\nimport matplotlib.pyplot as plt\n\n# =========================\n# Utilidades\n# =========================\ndef to_df_from_items(items):\n    \"\"\"\n    Constrói um DataFrame a partir de items[].json (saída típica do MySQL Query1).\n    Se não houver json tabular, tenta CSV do binário 'data'.\n    \"\"\"\n    # 1) Tenta items[].json (MySQL Query1)\n    rows = []\n    for it in items or []:\n        j = it.get(\"json\") or {}\n        # pega apenas dicts \"rasos\"\n        if isinstance(j, dict) and j:\n            rows.append(j)\n    if rows:\n        return pd.DataFrame(rows)\n\n    # 2) Fallback: CSV em binary.data (compatível com teu pipeline de Drive/Extract/Merge)\n    for it in items or []:\n        bmap = it.get(\"binary\", {})\n        data_entry = bmap.get(\"data\")\n        if data_entry and \"data\" in data_entry:\n            raw = base64.b64decode(data_entry[\"data\"])\n            # autodetecta separador\n            for sep in (None, \",\", \";\", \"\\t\", \"|\"):\n                try:\n                    return pd.read_csv(io.BytesIO(raw), sep=sep)\n                except Exception:\n                    pass\n    return None\n\ndef detect_label_value_cols(df: pd.DataFrame):\n    \"\"\"\n    Heurística igual à que você já usa no Code (JS):\n      - label: 1ª coluna de string\n      - value: 1ª coluna numérica (ou conversível)\n    \"\"\"\n    if df is None or df.empty:\n        return None, None\n\n    cols = list(df.columns)\n    first_row = df.iloc[0]\n\n    label_col = None\n    value_col = None\n\n    for c in cols:\n        if label_col is None and isinstance(first_row.get(c), str):\n            label_col = c\n        if value_col is None and pd.api.types.is_numeric_dtype(df[c]):\n            value_col = c\n        if label_col and value_col:\n            break\n\n    if label_col is None:\n        label_col = cols[0]\n\n    if value_col is None:\n        # tenta converter algum campo em número\n        for c in cols:\n            try:\n                n = pd.to_numeric(df[c], errors=\"coerce\")\n                if n.notna().any():\n                    value_col = c\n                    break\n            except Exception:\n                pass\n\n    return label_col, value_col\n\ndef make_chart(labels, values, chart_type=\"bar\", title=\"Resultados\", dataset_label=\"Valor\"):\n    \"\"\"\n    Gera gráfico com Matplotlib e retorna base64 PNG.\n    chart_type: 'bar' | 'line' | 'pie'\n    \"\"\"\n    plt.close(\"all\")\n    fig, ax = plt.subplots(figsize=(8, 4.5))\n\n    if chart_type == \"pie\":\n        # evita pie inválido\n        if not values or sum(values) == 0:\n            ax.text(0.5, 0.5, \"Sem valores para plotar\", ha=\"center\", va=\"center\")\n            ax.axis(\"off\")\n        else:\n            ax.pie(values, labels=labels, autopct=lambda p: f\"{p:.1f}%\" if p > 0 else \"\")\n            ax.axis(\"equal\")\n            ax.set_title(title)\n    elif chart_type == \"line\":\n        ax.plot(labels, values, marker=\"o\")\n        ax.set_title(title)\n        ax.set_xlabel(\"\")\n        ax.set_ylabel(dataset_label)\n        ax.grid(True, alpha=0.3)\n        plt.xticks(rotation=30, ha=\"right\")\n    else:  # bar (padrão)\n        ax.bar(labels, values)\n        ax.set_title(title)\n        ax.set_xlabel(\"\")\n        ax.set_ylabel(dataset_label)\n        plt.xticks(rotation=30, ha=\"right\")\n\n    plt.tight_layout()\n    buf = io.BytesIO()\n    plt.savefig(buf, format=\"png\", dpi=120, bbox_inches=\"tight\")\n    buf.seek(0)\n    out_b64 = base64.b64encode(buf.read()).decode(\"utf-8\")\n    plt.close(\"all\")\n    return out_b64\n\n# =========================\n# Entrada\n# =========================\ndf = to_df_from_items(items)\nif df is None or df.empty:\n    return [{\n        \"json\": {\n            \"ok\": False,\n            \"message\": \"Sem dados tabulares em items[].json (MySQL Query1) e nem CSV em binary.data\"\n        }\n    }]\n\n# parâmetros opcionais vindos do primeiro item (você pode populá-los antes do Python)\nj0 = (items[0].get(\"json\") if items else {}) or {}\nchart_type   = str(j0.get(\"chart_type\", \"bar\")).lower()     # 'bar' | 'line' | 'pie'\ntop_n        = int(j0.get(\"top_n\", 10))\ntitle        = j0.get(\"chart_title\", \"Resultados\")\ndataset_lbl  = j0.get(\"dataset_label\", \"Valor\")\n\n# =========================\n# Seleção de colunas label/valor + TOP N\n# =========================\nlabel_col, value_col = detect_label_value_cols(df)\nif value_col is None:\n    # Se não houver coluna de valor, tente contar registros (ex.: consultas com COUNT apenas)\n    out_b64 = make_chart([\"Total\"], [len(df)], chart_type=\"bar\", title=title, dataset_label=dataset_lbl)\n    return [{\"json\": {\n        \"ok\": True,\n        \"info\": \"value_col não encontrada; gráfico gerado com contagem de linhas\",\n        \"label_col\": label_col,\n        \"value_col\": value_col,\n        \"image_base64\": out_b64\n    }}]\n\n# normaliza valores numéricos\nvals = pd.to_numeric(df[value_col], errors=\"coerce\").fillna(0)\nlabs = df[label_col].astype(str).fillna(\"\")\n\npairs = [(l, float(v)) for l, v in zip(labs, vals)]\n# remove labels vazias e NaN\npairs = [(l, v) for (l, v) in pairs if l and not np.isnan(v)]\n\n# ordena desc por valor e limita\npairs.sort(key=lambda x: x[1], reverse=True)\npairs = pairs[:max(1, top_n)]\n\nlabels = [p[0] for p in pairs]\nvalues = [p[1] for p in pairs]\n\n# =========================\n# Gera o gráfico\n# =========================\nimg_b64 = make_chart(labels, values, chart_type=chart_type, title=title, dataset_label=dataset_lbl)\n\n# =========================\n# Saída para o n8n\n# =========================\nreturn [{\n    \"json\": {\n        \"ok\": True,\n        \"label_col\": label_col,\n        \"value_col\": value_col,\n        \"labels\": labels,\n        \"data\": values,\n        \"chart_type\": chart_type,\n        \"chart_title\": title,\n        \"dataset_label\": dataset_lbl,\n        \"image_base64\": img_b64\n    }\n}]\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        240
+      ],
+      "id": "3f8d54aa-6388-422a-a4a6-ff2350e0c091",
+      "name": "Code in Python (Beta)"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "image_base64",
+        "binaryPropertyName": "chart",
+        "options": {
+          "mimeType": "image/png"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        240
+      ],
+      "id": "e8a58cd9-aec8-407a-b8bc-aebd1bb63d3e",
+      "name": "Convert to File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "NFs_Itens",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gera o SQL Query",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NFs_Cabecalho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NFs_Itens": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NFs_Cabecalho": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "MySQL1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Pegando valor como Numeros1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "MySQL Query1": {
+      "main": [
+        [
+          {
+            "node": "Gera a reposta do Chat",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in Python (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pegando valor como Numeros1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gera o SQL Query": {
+      "main": [
+        [
+          {
+            "node": "MySQL Query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Gera o SQL Query",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Gera a reposta do Chat",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MySQL1": {
+      "main": [
+        []
+      ]
+    },
+    "Code in Python (Beta)": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b3f6598d-22b1-4cfa-8564-62e348f994f7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "799a4201496bf9fe0af88aec4f601b709edf18b9a5bb6a7ebf06020d191aff67"
+  },
+  "id": "Ojf2VFodnQSspVJX",
+  "tags": []
+}
